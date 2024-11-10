@@ -56,7 +56,7 @@ export class TileComponent {
     });
   }
 
-  ngOnInit(): void {
+  private ngOnInit(): void {
     this.color = this.tileService.noteToColor(this.note);
   }
 

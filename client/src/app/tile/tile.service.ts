@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Note } from './tile.component';
+import { SocketService } from '../socket.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TileService {
-  constructor() {}
+  constructor(private socketService: SocketService) {}
 
   noteToColor(note: Note): string {
     //only works up to G and octave 9
@@ -20,9 +21,9 @@ export class TileService {
   }
 
   sendNoteStart(note: Note) {
-    //send note
+    this.socketService.sendNoteStart(note);
   }
   sendNoteStop(note: Note) {
-    //send note
+    this.socketService.sendNoteStop(note);
   }
 }

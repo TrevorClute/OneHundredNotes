@@ -8,6 +8,7 @@ export class TileService {
   constructor() {}
 
   noteToColor(note: Note): string {
+    //only works up to G and octave 9
     return (
       '#' +
       (parseInt(note.letter[0], 17) - 1 - note.octave).toString(16) +

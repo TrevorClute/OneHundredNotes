@@ -1,0 +1,6 @@
+main {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 1px;
+  user-select: none;
+}

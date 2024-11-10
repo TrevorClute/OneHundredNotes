@@ -1,0 +1,5 @@
+<main>
+  @for(note of notes; track (note.letter + note.octave)) {
+  <tile-component [note]="note" />
+  }
+</main>

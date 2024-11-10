@@ -1,0 +1,16 @@
+<div
+  [style.color]="'white'"
+  [style.background-color]="color"
+  class="note"
+  (mousedown)="startNote()"
+  (mouseup)="stopNote()"
+  (mouseleave)="stopNote()"
+>
+  <span>
+    {{ note.letter[0] }}
+    <sup> {{ note.letter[1] }} </sup>
+    <sub>
+      {{ note.octave }}
+    </sub>
+  </span>
+</div>

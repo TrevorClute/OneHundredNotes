@@ -5,7 +5,6 @@ import { Note } from './tile.component';
   providedIn: 'root',
 })
 export class TileService {
-  socket = '';
   constructor() {}
 
   noteToColor(note: Note): string {

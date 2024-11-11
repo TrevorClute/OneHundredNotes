@@ -15,6 +15,7 @@ import {
 import { Server } from 'socket.io';
 import { Note } from './Note.dto';
 import { NoteValidationPipe } from './note-validation.pipe';
+import { Interval } from '@nestjs/schedule';
 
 @WebSocketGateway({
   cors: {
@@ -32,8 +33,19 @@ export class NoteGateway {
       forbidNonWhitelisted: true,
     }),
   )
-  @SubscribeMessage('note')
-  onEvent(@MessageBody() note: Note): void {
-    this.server.emit('note', note);
+  @SubscribeMessage('note-start')
+  onStart(@MessageBody() note: Note): void {
+    this.server.emit('note-start', note);
+  }
+
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
+  @SubscribeMessage('note-stop')
+  onStop(@MessageBody() note: Note): void {
+    this.server.emit('note-stop', note);
   }
 }

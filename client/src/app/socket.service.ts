@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private socket: Socket;
   constructor() {
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://192.168.0.20:3000');
   }
   sendNoteStart(note: Note) {
     this.socket.emit('note-start', note);

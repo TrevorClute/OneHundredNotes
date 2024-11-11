@@ -8,7 +8,7 @@
     <script>
       const socket = io('http://localhost:3000');
 
-      socket.on('note', (note)=>{
+      socket.on('note-start', (note)=>{
         appendToList(`${note.letter}${note.octave}`);
       })
 
@@ -20,7 +20,7 @@
       }
 
       function send() {
-        socket.emit('note', {letter:"A", octave:3},(res)=>{
+        socket.emit('note-start', {letter:"A", octave:3},(res)=>{
           console.log(res)
         })
       }

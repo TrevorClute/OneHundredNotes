@@ -6,7 +6,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Note, TileComponent } from './tile/tile.component';
-import { NOTES } from './notes';
+import { NotesService } from './notes.service';
 import { SocketService } from './socket.service';
 
 @Component({
@@ -17,19 +17,24 @@ import { SocketService } from './socket.service';
   imports: [TileComponent],
 })
 export class AppComponent {
-  constructor(private socketService: SocketService) {}
+  constructor(
+    private socketService: SocketService,
+    private notesService: NotesService
+  ) {
+    this.notes = notesService.notes;
+  }
+  notes: Note[];
 
-  notes: Note[] = NOTES.sort((a, b) => {
-    let aValue = parseInt(a.letter[0], 17) + (a.letter.includes('#') ? 0.5 : 0);
-    let bValue = parseInt(b.letter[0], 17) + (b.letter.includes('#') ? 0.5 : 0);
-    return aValue - bValue;
-  });
   @ViewChildren(TileComponent) tiles!: QueryList<TileComponent>;
-  tileMap: Map<Note, TileComponent> = new Map<Note, TileComponent>();
 
   ngAfterViewInit() {
-    this.tiles.forEach((tile) => {
-      this.tileMap?.set(tile.note, tile);
+    console.log(this.notesService.noteMap);
+    this.socketService.onNoteStart().subscribe((note) => {
+      this.tiles.get(this.notesService.getIndex(note))?.startNoteRecieved();
+    });
+
+    this.socketService.onNoteStop().subscribe((note) => {
+      this.tiles.get(this.notesService.getIndex(note))?.stopNoteRecieved();
     });
   }
 }

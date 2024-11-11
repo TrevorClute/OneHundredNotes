@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { NoteGateway } from './note.gateway';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  providers: [NoteGateway]
+  providers: [NoteGateway],
 })
 export class NoteModule {}

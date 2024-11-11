@@ -72,4 +72,12 @@ export class TileComponent {
     this.color = this.tileService.noteToColor(this.note);
     this.tileService.sendNoteStop(this.note);
   }
+
+  startNoteRecieved() {
+    this.color = '#000';
+  }
+
+  stopNoteRecieved() {
+    this.color = this.tileService.noteToColor(this.note);
+  }
 }

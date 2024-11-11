@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TileService } from './tile.service';
+import { NotesService } from '../notes.service';
 export interface Note {
   letter:
     | 'A'
@@ -39,7 +40,8 @@ export class TileComponent {
   constructor(
     private elementRef: ElementRef,
     private cdRef: ChangeDetectorRef,
-    private tileService: TileService
+    private tileService: TileService,
+    private notesService: NotesService
   ) {
     afterRender(() => {
       const element = elementRef.nativeElement;
@@ -63,6 +65,7 @@ export class TileComponent {
   startNote() {
     this.mouseStatus = 'down';
     this.color = '#000';
+    this.tileService.startNoteAudio(this.note);
     this.tileService.sendNoteStart(this.note);
   }
 
@@ -70,14 +73,17 @@ export class TileComponent {
     if (this.mouseStatus === 'up') return; //doesnt execute if mouse is up
     this.mouseStatus = 'up'; // sets mouse to up after confirming mouse is down
     this.color = this.tileService.noteToColor(this.note);
+    this.tileService.stopNoteAudio(this.note);
     this.tileService.sendNoteStop(this.note);
   }
 
   startNoteRecieved() {
+    this.tileService.startNoteAudio(this.note);
     this.color = '#000';
   }
 
   stopNoteRecieved() {
+    this.tileService.stopNoteAudio(this.note);
     this.color = this.tileService.noteToColor(this.note);
   }
 }

@@ -22,13 +22,18 @@ export class AppComponent {
     private notesService: NotesService
   ) {
     this.notes = notesService.notes;
+    this.initAudio = async () => {
+      await notesService.initAudio();
+      this.audioEnabled = true;
+    };
   }
   notes: Note[];
+  initAudio: () => Promise<void>;
+  audioEnabled = false;
 
   @ViewChildren(TileComponent) tiles!: QueryList<TileComponent>;
 
   ngAfterViewInit() {
-    console.log(this.notesService.noteMap);
     this.socketService.onNoteStart().subscribe((note) => {
       this.tiles.get(this.notesService.getIndex(note))?.startNoteRecieved();
     });

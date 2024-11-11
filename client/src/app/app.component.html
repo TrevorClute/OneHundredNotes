@@ -1,5 +1,11 @@
 <main>
-  @for(note of notes; track (note.letter + note.octave)) {
-  <tile-component [note]="note" />
+  @if (audioEnabled){
+  <div class="container">
+    @for(note of notes; track (note.letter + note.octave)) {
+    <tile-component [note]="note" />
+    }
+  </div>
+  } @else {
+  <button (click)="initAudio()">enable audio</button>
   }
 </main>

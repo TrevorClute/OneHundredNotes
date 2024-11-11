@@ -1,6 +1,10 @@
-main {
+.container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   gap: 1px;
   user-select: none;
+}
+button {
+  transform: translate(50vw, 50vh) translate(-50%, -50%);
+  aspect-ratio: 1/1;
 }

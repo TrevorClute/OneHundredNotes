@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Note } from './tile/tile.component';
+import * as Tone from 'tone';
 
 @Injectable({
   providedIn: 'root',
@@ -125,7 +126,40 @@ export class NotesService {
       return [note.letter + note.octave, index];
     })
   );
+  notesBeingPlayed = new Map<string, Tone.Synth<Tone.SynthOptions>>();
+
   getIndex(note: Note): number {
     return this.noteMap.get(note.letter + note.octave) || 0; // for some reason its unable to get A1 so return if unfound this literally makes no sense
+  }
+
+  noteToColor(note: Note): string {
+    //only works up to G and octave 9
+    return (
+      '#' +
+      (parseInt(note.letter[0], 17) - 1 - note.octave).toString(16) +
+      (note.letter.includes('#') ? '8' : '0') +
+      '44' +
+      note.octave.toString(16) +
+      '0'
+    );
+  }
+
+  async initAudio() {
+    await Tone.start();
+  }
+
+  startNoteAudio(note: Note) {
+    if (this.notesBeingPlayed.get(note.letter + note.octave)) {
+      return;
+    }
+    const synth = new Tone.Synth().toDestination();
+    const now = Tone.now();
+    synth.triggerAttack(note.letter + note.octave, now);
+    this.notesBeingPlayed.set(note.letter + note.octave, synth);
+  }
+  stopNoteAudio(note: Note) {
+    console.log(this.notesBeingPlayed.get(note.letter + note.octave));
+    this.notesBeingPlayed.get(note.letter + note.octave)?.triggerRelease();
+    this.notesBeingPlayed.delete(note.letter + note.octave);
   }
 }

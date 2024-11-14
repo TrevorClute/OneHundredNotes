@@ -23,13 +23,16 @@ export class AppComponent {
   ) {
     this.notes = notesService.notes;
     this.initAudio = async () => {
+      this.loading = true;
       await notesService.initAudio();
+      this.loading = false;
       this.audioEnabled = true;
     };
   }
   notes: Note[];
   initAudio: () => Promise<void>;
   audioEnabled = false;
+  loading = false;
 
   @ViewChildren(TileComponent) tiles!: QueryList<TileComponent>;
 

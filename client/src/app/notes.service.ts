@@ -150,7 +150,7 @@ export class NotesService {
 
   startNoteAudio(note: Note) {
     if (this.notesBeingPlayed.get(note.letter + note.octave)) {
-      return;
+      throw new Error('note is already being played');
     }
     const synth = new Tone.Synth().toDestination();
     const now = Tone.now();
@@ -158,7 +158,6 @@ export class NotesService {
     this.notesBeingPlayed.set(note.letter + note.octave, synth);
   }
   stopNoteAudio(note: Note) {
-    console.log(this.notesBeingPlayed.get(note.letter + note.octave));
     this.notesBeingPlayed.get(note.letter + note.octave)?.triggerRelease();
     this.notesBeingPlayed.delete(note.letter + note.octave);
   }

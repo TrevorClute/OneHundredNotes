@@ -38,25 +38,9 @@ export class TileComponent {
   mouseStatus: 'up' | 'down' = 'up';
 
   constructor(
-    private elementRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
     private tileService: TileService,
     private notesService: NotesService
-  ) {
-    afterRender(() => {
-      const element = elementRef.nativeElement;
-      element.addEventListener('touchstart', (e: TouchEvent) => {
-        e.preventDefault();
-        this.startNote();
-        cdRef.detectChanges();
-      });
-      element.addEventListener('touchend', (e: TouchEvent) => {
-        e.preventDefault();
-        this.stopNote();
-        cdRef.detectChanges();
-      });
-    });
-  }
+  ) {}
 
   private ngOnInit(): void {
     this.color = this.tileService.noteToColor(this.note);
@@ -65,7 +49,12 @@ export class TileComponent {
   startNote() {
     this.mouseStatus = 'down';
     this.color = '#000';
-    this.tileService.startNoteAudio(this.note);
+    try {
+      this.tileService.startNoteAudio(this.note);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
     this.tileService.sendNoteStart(this.note);
   }
 

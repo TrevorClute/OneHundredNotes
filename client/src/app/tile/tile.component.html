@@ -5,6 +5,8 @@
   (mousedown)="startNote()"
   (mouseup)="stopNote()"
   (mouseleave)="stopNote()"
+  (touchstart)="startNote()"
+  (touchend)="stopNote()"
 >
   <span>
     {{ note.letter[0] }}

@@ -23,6 +23,7 @@ import { SkipThrottle, Throttle } from '@nestjs/throttler';
 @WebSocketGateway({
   cors: {
     // change once domain is established
+    // origin: 'http://127.0.0.1:5500',
     origin: '*',
   },
 })

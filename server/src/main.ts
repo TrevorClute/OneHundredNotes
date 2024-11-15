@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  console.log('ehlp');
+  await app.listen(80, '0.0.0.0');
 }
 bootstrap();

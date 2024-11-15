@@ -52,7 +52,6 @@ export class TileComponent {
     try {
       this.tileService.startNoteAudio(this.note);
     } catch (err) {
-      console.log(err);
       return;
     }
     this.tileService.sendNoteStart(this.note);

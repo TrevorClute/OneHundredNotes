@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onehundrednotes
+spec:
+  selector:
+    matchLabels:
+      app: onehundrednotes
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: onehundrednotes
+    spec:
+      containers:
+        - name: onehundrednotes
+          image: trevorclute/onehundrednotes
+          ports:
+            - containerPort: 80

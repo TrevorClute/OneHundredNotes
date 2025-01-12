@@ -9,7 +9,10 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private socket: Socket;
   constructor() {
-    this.socket = io('http://localhost:80');
+    // this.socket = io('https://onehundrednotes-production.up.railway.app/');
+    //this.socket = io('http://10.233.206.173:3000');
+    //insert your localhostip address or just use localhost if not using other devices
+    this.socket = io('http://192.168.0.28:3000');
   }
   sendNoteStart(note: Note) {
     this.socket.emit('note-start', note);

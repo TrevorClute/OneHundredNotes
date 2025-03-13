@@ -12,7 +12,8 @@ export class SocketService {
     // this.socket = io('https://onehundrednotes-production.up.railway.app/');
     //this.socket = io('http://10.233.206.173:3000');
     //insert your localhostip address or just use localhost if not using other devices
-    this.socket = io('http://192.168.0.28:3000');
+    //this.socket = io('http://192.168.0.33:3000');
+    this.socket = io('https://onehundrednotes.onrender.com');
   }
   sendNoteStart(note: Note) {
     this.socket.emit('note-start', note);
